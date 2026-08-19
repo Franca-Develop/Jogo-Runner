@@ -1,0 +1,234 @@
+/* Resets globais e prevenção de rolagem */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #5c94fc;
+  font-family: 'Arial Black', 'Impact', sans-serif;
+  user-select: none;
+}
+
+/* Container Tela Cheia 100vw x 100vh */
+.tela-inicial {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* Regra geral de nitidez pixel art */
+.sprite {
+  position: absolute;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  pointer-events: none;
+}
+
+/* ==========================================
+   ELEMENTOS DO TOPO
+   ========================================== */
+.moeda-topo-esquerda {
+  top: 5vh;
+  left: 2.5vw;
+  width: clamp(60px, 80vw, 100px);
+}
+
+.estrela-topo-direita {
+  top: 3vh;
+  right: 2.5vw;
+  width: clamp(45px, 5vw, 85px);
+}
+
+.nuvem {
+  width: clamp(120px, 14vw, 240px);
+  opacity: 0.95;
+  z-index: 1;
+}
+
+.nuvem-1 {
+  top: 6vh;
+  left: 15vw;
+}
+
+.nuvem-2 {
+  top: 8vh;
+  right: 15vw;
+}
+
+/* ==========================================
+   LOGO PRINCIPAL (Grande e destacado)
+   ========================================== */
+.logo-wrapper {
+  position: absolute;
+  top: 3vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(380px, 58vw, 950px);
+  text-align: center;
+  z-index: 10;
+}
+
+.logo-game {
+  position: relative;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0px 6px 0px rgba(0, 0, 0, 0.3));
+}
+
+/* ==========================================
+   BLOCOS E FILEIRAS DE MOEDAS (Escala maior)
+   ========================================== */
+.grupo-plataforma {
+  position: absolute;
+  z-index: 3;
+}
+
+.blocos-img {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+.fileira-moedas {
+  position: absolute;
+  bottom: 80%; /* Posiciona as moedas exatamente em cima dos blocos */
+  display: flex;
+  gap: 0.6vw;
+  z-index: 4;
+}
+
+.moeda-item {
+  position: relative;
+  width: clamp(90px, 4vw, 65px);
+}
+
+/* Plataforma Esquerda */
+.plataforma-esquerda {
+  bottom: 37vh;
+  left: 5vw;
+  width: clamp(200px, 22vw, 360px);
+}
+
+.moedas-dupla {
+  left: 26%;
+}
+
+/* Plataforma Direita */
+.plataforma-direita {
+  bottom: 37vh;
+  right: 1vw;
+  width: clamp(220px, 24vw, 390px);
+}
+
+.moedas-trio {
+  right: 10%;
+}
+
+/* ==========================================
+   CANOS VERDES (Encostados na grama)
+   ========================================== */
+.cano-esquerdo {
+  bottom: 22vh; /* Alinhado exatamente na superfície da grama */
+  left: 0vw;
+  width: clamp(80px, 8.5vw, 140px);
+  z-index: 2;
+}
+
+.cano-direito {
+  bottom: 22vh; /* Alinhado exatamente na superfície da grama */
+  left: 68vw;
+  width: clamp(80px, 8.5vw, 140px);
+  z-index: 2;
+}
+
+/* ==========================================
+   PERSONAGENS (Ancorados pela base e responsivos)
+   ========================================== */
+
+/* MARIO: Grande, centralizado e pisando na grama */
+.mario-personagem {
+  bottom: 22vh; /* Pés encostados exatamente na superfície do chão */
+  left: 41vw;
+  width: clamp(180px, 18vw, 320px);
+  height: auto;
+  z-index: 8;
+  filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.35));
+}
+
+/* GOOMBA: Ao lado do Mario, menor que ele, pisando no chão */
+.goomba-inimigo {
+  bottom: 22vh; /* Pés encostados exatamente na superfície do chão */
+  left: 58vw;
+  width: clamp(75px, 8vw, 135px);
+  height: auto;
+  z-index: 3;
+}
+
+/* ==========================================
+   BOTÃO RETRO 3D
+   ========================================== */
+.botao-iniciar {
+  position: absolute;
+  bottom: 4.5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  
+  font-family: inherit;
+  font-size: clamp(1.2rem, 1.8vw, 2.2rem);
+  font-weight: 900;
+  color: #ffffff;
+  text-shadow: 2px 2px 0px #000000;
+  
+  background-color: #00a800;
+  padding: clamp(10px, 1.5vh, 18px) clamp(28px, 3vw, 54px);
+  border: 4px solid #033406;
+  border-radius: 16px;
+  cursor: pointer;
+  
+  box-shadow: 
+    inset 0px 4px 0px #66ff66,
+    inset 0px -4px 0px #005000,
+    0px 6px 0px #003000,
+    0px 10px 12px rgba(0, 0, 0, 0.45);
+    
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.1s ease;
+}
+
+.botao-iniciar:hover {
+  background-color: #00c800;
+  transform: translateX(-50%) scale(1.04);
+  box-shadow: 
+    inset 0px 4px 0px #88ff88,
+    inset 0px -4px 0px #006000,
+    0px 8px 0px #003000,
+    0px 12px 16px rgba(0, 0, 0, 0.5);
+}
+
+.botao-iniciar:active {
+  transform: translateX(-50%) translateY(4px);
+  box-shadow: 
+    inset 0px 2px 0px #005000,
+    0px 2px 0px #003000,
+    0px 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.icone-play {
+  font-size: 0.9em;
+}
