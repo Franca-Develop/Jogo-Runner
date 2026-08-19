@@ -1,10 +1,10 @@
-import { Mario } from "./componentes/Mario"
+import { MarioCanvas } from "./componentes/MarioCanvas"
 
 export default function App() {
 
   return (
     <>
-      <Mario />
+      <MarioCanvas />
     </>
   )
 }
