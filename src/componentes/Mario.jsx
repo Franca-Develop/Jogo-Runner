@@ -1,6 +1,6 @@
 export function Mario() {
   let img = new Image();
-  img.src = "../assets/sprite-mario.png";
+  img.src = "../assets/SpritesMario.png";
   img.onload = () => {
     init();
   };
