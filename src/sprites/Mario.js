@@ -1,4 +1,4 @@
-import spriteMario from "../assets/sprite-mario.png";
+import spriteMario from "../assets/SpritesMario.png";
 
 export function criarMario(contexto) {
   let img = new Image();
