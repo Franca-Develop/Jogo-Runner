@@ -1,12 +1,13 @@
-import GameOver from './componentes/GameOver';
+import { Cenario } from './componentes/Cenario'
+export default function App() {
 
 
 function App() {
   return (
-    <div>
-      <GameOver/>
-    </div>
-  );
+    <>
+      <Cenario /> 
+    </>
+  )
 }
 
 export default App;

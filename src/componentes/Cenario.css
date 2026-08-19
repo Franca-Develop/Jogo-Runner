@@ -1,0 +1,120 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.mario-cenario {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(
+    to bottom, 
+    #3b8dff 0%, 
+    #61a7ff 50%, 
+    #8bc2ff 75%, 
+    #bfe0ff 100%
+  );
+  image-rendering: pixelated;
+}
+
+/* Nuvens */
+.camada-nuvens {
+  position: absolute;
+  bottom: 220px;
+  left: 0;
+  width: 100%;
+  height: 320px;
+  background-repeat: repeat-x;
+  background-position: bottom left;
+  background-size: auto 100%;
+  animation: moverNuvens 100s linear infinite;
+  z-index: 1;
+}
+
+/* Montanhas */
+.camada-montanhas {
+  position: absolute;
+  bottom: 120px;
+  left: 0;
+  width: 100%;
+  height: 260px;
+  background-repeat: repeat-x;
+  background-position: bottom left;
+  background-size: auto 100%;
+  animation: moverMontanhas 50s linear infinite;
+  z-index: 2;
+}
+
+/* Chão */
+.camada-chao {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 130px;
+  background-repeat: repeat-x;
+  background-position: bottom left;
+  background-size: auto 100%;
+  animation: moverChao 30s linear infinite;
+  z-index: 10;
+}
+
+/* ==========================================
+   OBSTÁCULOS
+   ========================================== */
+.container-obstaculos {
+  position: absolute;
+  bottom: 130px; /* Alinhado exatamente ao topo do chão (130px) */
+  left: 0;
+  width: 100%;
+  height: 100px;
+  z-index: 5; /* Fica acima das montanhas/nuvens e atrás do chão ou na frente se ajustar z-index */
+  pointer-events: none;
+}
+
+.obstaculo {
+  position: absolute;
+  bottom: 0; /* Fixa a base do obstáculo no chão */
+  image-rendering: pixelated;
+}
+
+/* Cano: travessia completa em 18 segundos */
+.cano {
+  height: 80px;
+  animation: moverObstaculo 10s linear infinite ;
+}
+
+/* Goomba: travessia em 18s, mas inicia 10 segundos depois do Cano */
+.goomba {
+  height: 75px;
+  bottom: -4px;
+  animation: moverObstaculo 10s linear infinite 5s;
+}
+
+/* Keyframes de movimentação */
+@keyframes moverNuvens {
+  from { background-position-x: 0px; }
+  to { background-position-x: -2000px; }
+}
+
+@keyframes moverMontanhas {
+  from { background-position-x: 0px; }
+  to { background-position-x: -2000px; }
+}
+
+@keyframes moverChao {
+  from { background-position-x: 0px; }
+  to { background-position-x: -2000px; }
+}
+
+/* Animação dos Obstáculos da direita para a esquerda */
+@keyframes moverObstaculo {
+  from {
+    left: 100vw;
+  }
+  to {
+    left: -150px;
+  }
+}
