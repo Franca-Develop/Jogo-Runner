@@ -9,7 +9,6 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  /* Gradiente do céu */
   background: linear-gradient(
     to bottom, 
     #3b8dff 0%, 
@@ -20,7 +19,7 @@
   image-rendering: pixelated;
 }
 
-/* Nuvens (movimento lento) */
+/* Nuvens */
 .camada-nuvens {
   position: absolute;
   bottom: 220px;
@@ -34,7 +33,7 @@
   z-index: 1;
 }
 
-/* Montanhas (movimento médio/lento) */
+/* Montanhas */
 .camada-montanhas {
   position: absolute;
   bottom: 120px;
@@ -48,7 +47,7 @@
   z-index: 2;
 }
 
-/* Chão (movimento mais rápido) */
+/* Chão */
 .camada-chao {
   position: absolute;
   bottom: 0;
@@ -58,35 +57,64 @@
   background-repeat: repeat-x;
   background-position: bottom left;
   background-size: auto 100%;
-  animation: moverChao 30s linear infinite; /* <-- Adicionada animação do chão */
+  animation: moverChao 30s linear infinite;
   z-index: 10;
 }
 
-/* Keyframes de animação para cada elemento */
+/* ==========================================
+   OBSTÁCULOS
+   ========================================== */
+.container-obstaculos {
+  position: absolute;
+  bottom: 130px; /* Alinhado exatamente ao topo do chão (130px) */
+  left: 0;
+  width: 100%;
+  height: 100px;
+  z-index: 5; /* Fica acima das montanhas/nuvens e atrás do chão ou na frente se ajustar z-index */
+  pointer-events: none;
+}
+
+.obstaculo {
+  position: absolute;
+  bottom: 0; /* Fixa a base do obstáculo no chão */
+  image-rendering: pixelated;
+}
+
+/* Cano: travessia completa em 18 segundos */
+.cano {
+  height: 80px;
+  animation: moverObstaculo 10s linear infinite ;
+}
+
+/* Goomba: travessia em 18s, mas inicia 10 segundos depois do Cano */
+.goomba {
+  height: 75px;
+  bottom: -4px;
+  animation: moverObstaculo 10s linear infinite 5s;
+}
+
+/* Keyframes de movimentação */
 @keyframes moverNuvens {
-  from {
-    background-position-x: 0px;
-  }
-  to {
-    background-position-x: -2000px;
-  }
+  from { background-position-x: 0px; }
+  to { background-position-x: -2000px; }
 }
 
 @keyframes moverMontanhas {
-  from {
-    background-position-x: 0px;
-  }
-  to {
-    background-position-x: -2000px;
-  }
+  from { background-position-x: 0px; }
+  to { background-position-x: -2000px; }
 }
 
-/* Animação do chão deslizando */
 @keyframes moverChao {
+  from { background-position-x: 0px; }
+  to { background-position-x: -2000px; }
+}
+
+/* Animação dos Obstáculos da direita para a esquerda */
+@keyframes moverObstaculo {
   from {
-    background-position-x: 0px;
+    left: 100vw;
   }
   to {
-    background-position-x: -2000px;
+    left: -150px;
   }
 }
