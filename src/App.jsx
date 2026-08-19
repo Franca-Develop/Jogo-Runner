@@ -1,10 +1,10 @@
-import { MarioCanvas } from "./componentes/MarioCanvas"
+import { Cenario } from './componentes/Cenario'
 
 export default function App() {
 
   return (
     <>
-      <MarioCanvas />
+      <Cenario /> 
     </>
   )
 }

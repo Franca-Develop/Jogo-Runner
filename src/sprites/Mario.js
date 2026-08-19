@@ -1,16 +1,21 @@
 import spriteMario from "../assets/SpritesMario.png";
 
 export function criarMario(contexto) {
-  let img = new Image();
+  const img = new Image();
 
-  const escala = 3;
-  const largura = 17.6;
-  const altura = 30;
+  const escala = 0.7;
+  const largura = 222;
+  const altura = 192;
 
   const escalaLargura = escala * largura;
   const escalaAltura = escala * altura;
 
-  const imagens = [5, 6, 5, 7];
+  // Sprites de corrida
+  const spritesCorrendo = [7, 8, 9, 10, 11, 12];
+
+  // Sprite de pulo
+  const spritePulando = 19;
+
   let indiceImagem = 0;
   let contaQuadro = 0;
   let direcaoAtual = 0;
@@ -23,15 +28,22 @@ export function criarMario(contexto) {
 
   let noChao = true;
 
+  let estado = "correndo";
+
   let animationId;
 
-  function desenhaQuadro(posX, posY, canvasX, canvasY) {
+  function desenhaQuadro(numeroSprite, canvasX, canvasY) {
+    const coluna = (numeroSprite - 1) % 6;
+    const linha = Math.floor((numeroSprite - 1) / 6);
+
     contexto.drawImage(
       img,
-      posX * largura,
-      posY * altura,
+
+      coluna * largura,
+      linha * altura,
       largura,
       altura,
+
       canvasX,
       canvasY,
       escalaLargura,
@@ -40,10 +52,13 @@ export function criarMario(contexto) {
   }
 
   function pular() {
-    if (!noChao) return;
+    if (!noChao) {
+      return;
+    }
 
     velocidadeY = forcaPulo;
     noChao = false;
+    estado = "pulando";
   }
 
   function atualizar() {
@@ -54,39 +69,44 @@ export function criarMario(contexto) {
       y = 100;
       velocidadeY = 0;
       noChao = true;
+
+      estado = "correndo";
     }
   }
 
-  function corrida() {
+  function loop() {
+    atualizar();
+
     contaQuadro++;
-    if (contaQuadro < 16) {
-      window.requestAnimationFrame(corrida);
-      return;
+
+    if (contaQuadro >= 8) {
+      contaQuadro = 0;
+
+      contexto.clearRect(0, 0, contexto.canvas.width, contexto.canvas.height);
+
+      if (estado === "correndo") {
+        desenhaQuadro(spritesCorrendo[indiceImagem], 0, y);
+
+        indiceImagem++;
+
+        if (indiceImagem >= spritesCorrendo.length) {
+          indiceImagem = 0;
+        }
+      }
+
+      if (estado === "pulando") {
+        desenhaQuadro(spritePulando, 0, y);
+      }
     }
 
-    contaQuadro = 0;
-
-    contexto.clearRect(0, 0, contexto.canvas.width, contexto.canvas.height);
-
-    desenhaQuadro(imagens[indiceImagem], direcaoAtual, 0, y);
-    indiceImagem++;
-    if (indiceImagem >= imagens.length) {
-      indiceImagem = 0;
-      direcaoAtual++;
-    }
-    if (direcaoAtual >= 1) {
-      direcaoAtual = 0;
-    }
-
-    animationId = requestAnimationFrame(corrida);
+    animationId = window.requestAnimationFrame(loop);
   }
 
   function iniciar() {
     img.onload = () => {
       console.log("Imagem carregada!");
-      console.log(img.width, img.height);
 
-      animationId = requestAnimationFrame(corrida);
+      animationId = window.requestAnimationFrame(loop);
     };
 
     img.onerror = () => {
@@ -97,7 +117,7 @@ export function criarMario(contexto) {
   }
 
   function parar() {
-    cancelAnimationFrame(animationId);
+    window.cancelAnimationFrame(animationId);
   }
 
   iniciar();
